@@ -9,3 +9,10 @@ def new_map(num_elements, load_factor, prime=109345121):
         
         map["table"]["elements"].append(me.new_map_entry(None, None))
     return map
+
+def get(my_map, key):
+    h=mf.hash_value(my_map,key)
+    comp=find_slot(my_map,key,h)
+    if comp[0]==True:
+        return 
+        
