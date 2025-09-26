@@ -1,6 +1,6 @@
 from DataStructures.List import array_list as al
-import map_entry as me
-import map_functions as mf
+from DataStructures.Map import map_entry as me
+from DataStructures.Map import map_functions as mf
 
 def find_slot(my_map, key, hash_value):
    first_avail = None
@@ -10,10 +10,10 @@ def find_slot(my_map, key, hash_value):
       if is_available(my_map["table"], hash_value):
             if first_avail is None:
                first_avail = hash_value
-            entry = lt.get_element(my_map["table"], hash_value)
+            entry = al.get_element(my_map["table"], hash_value)
             if me.get_key(entry) is None:
                found = True
-      elif default_compare(key, lt.get_element(my_map["table"], hash_value)) == 0:
+      elif default_compare(key, al.get_element(my_map["table"], hash_value)) == 0:
             first_avail = hash_value
             found = True
             ocupied = True
@@ -23,7 +23,7 @@ def find_slot(my_map, key, hash_value):
 
 def is_available(table, pos):
 
-   entry = lt.get_element(table, pos)
+   entry = al.get_element(table, pos)
    if me.get_key(entry) is None or me.get_key(entry) == "__EMPTY__":
       return True
    return False
@@ -50,12 +50,8 @@ def put(my_map, key, value):
     return my_map
 
 def remove(my_map, key):
+    pass
     
-
-
-import map_entry as me
-import map_functions as mf
-
 def contains(my_map, key): 
     lista = my_map['table']['elements']
     for llave in lista:
@@ -67,8 +63,7 @@ def size(my_map):
     return my_map['table']['size']
 
 
-from  DataStructures.Map import map_entry as me
-from  DataStructures.Map import map_functions as mf
+
 
 def new_map(num_elements, load_factor, prime=109345121):
     capacity=(num_elements/load_factor)+1
