@@ -41,12 +41,16 @@ def default_compare(key, entry):
 def put(my_map, key, value):
     valor=mf.hash_value(my_map,key)
     estado,pos=find_slot(my_map,key,valor)
-    if not estado:
+    if estado:
+        my_map["table"]["elements"][pos]["value"]=value
+    else: 
         my_map["table"]["elements"][pos]["key"]=key
         my_map["table"]["elements"][pos]["value"]=value
-    my_map["table"]["current_factor"]+=1
-    if my_map["table"]["current_factor"] > my_map["table"]["limit_factor"]:
+        my_map["table"]["current_factor"]+=1
+        
+    if my_map["table"]["current_factor"]/ my_map["table"]["size"] > my_map["table"]["limit_factor"]:
         my_map=rehash(my_map)
+        
     return my_map
 
 def remove(my_map, key):
@@ -75,7 +79,8 @@ def new_map(num_elements, load_factor, prime=109345121):
 
 def get(my_map, key):
     h=mf.hash_value(my_map,key)
-    comp=find_slot(my_map,key,h)
-    if comp[0]==True:
-        return 
-        
+    comp, pos=find_slot(my_map,key,h)
+    if comp: 
+        return my_map["table"]["elements"][pos]["value"]
+    else:
+        return None    
