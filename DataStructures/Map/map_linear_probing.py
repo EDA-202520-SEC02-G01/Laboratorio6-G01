@@ -97,3 +97,8 @@ def get(my_map, key):
         return my_map["table"]["elements"][pos]["value"]
     else:
         return None    
+    
+def is_empty(my_map):
+    if my_map["size"]==0:
+        return True
+    return False
