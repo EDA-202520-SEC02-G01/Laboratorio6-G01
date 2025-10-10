@@ -26,8 +26,8 @@
 
 import sys
 import App.logic as logic
-# TODO Realice la importación del mapa linear probing
-# TODO Realice la importación de ArrayList como estructura de datos auxiliar para sus requerimientos
+from DataStructures.Map import map_linear_probing as lp
+from DataStructures.List import array_list as al
 
 
 """
@@ -148,15 +148,14 @@ def main():
     while working:
         print_menu()
         inputs = input("Seleccione una opción para continuar\n")
-        # TODO agregar tiempo de ejecución y consumo de memoria
-        if int(inputs[0]) == 1:
+
+        if int(inputs[0]) == 1:       
             print("Cargando información de los archivos ....")
             bk, at, tg, bktg = load_data(control)
             print('Libros cargados: ' + str(bk))
             print('Autores cargados: ' + str(at))
             print('Géneros cargados: ' + str(tg))
-            print('Asociación de Géneros a Libros cargados: ' +
-                  str(bktg))
+            print('Asociación de Géneros a Libros cargados: ' + str(bktg))
 
         elif int(inputs[0]) == 2:
             number = input("Ingrese el id del libro (good_read_book_id) que desea buscar: ")
