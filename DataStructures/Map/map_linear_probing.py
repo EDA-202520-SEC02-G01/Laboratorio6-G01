@@ -102,3 +102,11 @@ def is_empty(my_map):
     if my_map["size"]==0:
         return True
     return False
+
+def key_set(my_map):
+    res={"size":0, "elements":[]}
+    for i in my_map["table"]["elements"]:
+        if i["key"] != None:
+            res["elements"].append(i["key"])
+            res["size"]+=1
+    return res
