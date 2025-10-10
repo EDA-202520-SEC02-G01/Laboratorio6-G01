@@ -77,7 +77,7 @@ def contains(my_map, key):
     return False
     
 def size(my_map):
-    return my_map['table']['size']
+    return my_map['size']
 
 
 
