@@ -22,7 +22,7 @@ def find_slot(my_map, key, hash_value):
 
 
 def is_available(table, pos):
-
+    
    entry = al.get_element(table, pos)
    if me.get_key(entry) is None or me.get_key(entry) == "__EMPTY__":
       return True
@@ -82,9 +82,9 @@ def size(my_map):
 
 
 def new_map(num_elements, load_factor, prime=109345121):
-    capacity=(num_elements/load_factor)+1
+    capacity=mf.next_prime(num_elements/load_factor)
     map={"prime":prime, "capacity":capacity,"scale":1,"shift":0,"table":{"size":capacity,"elements":[]},"current_factor":0,"limit_factor":load_factor,"size":0}
-    for i in range(0,num_elements):
+    for i in range(0,capacity):
         
         map["table"]["elements"].append(me.new_map_entry(None, None))
     return map
