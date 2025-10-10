@@ -46,12 +46,24 @@ def put(my_map, key, value):
     else: 
         my_map["table"]["elements"][pos]["key"]=key
         my_map["table"]["elements"][pos]["value"]=value
-        my_map["table"]["current_factor"]+=1
+        my_map["current_factor"]+=1
         
-    if my_map["table"]["current_factor"]/ my_map["table"]["size"] > my_map["table"]["limit_factor"]:
+    if my_map["current_factor"]/ my_map["capacity"] > my_map["limit_factor"]:
         my_map=rehash(my_map)
         
     return my_map
+    
+
+def rehash(my_map):
+    numero_a=my_map["capacity"]*2
+    si=mf.is_prime(numero_a)
+    if not si:
+        numero_a=mf.next_prime(numero_a)
+    x=new_map(numero_a,my_map["load_factor"])
+    for elemento in my_map["table"]["elements"]:
+        if elemento["key"]!=None:
+            x=put(x,elemento["key"], elemento["value"])
+    return x
 
 def remove(my_map, key):
     pass
