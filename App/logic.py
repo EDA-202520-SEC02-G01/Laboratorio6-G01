@@ -192,8 +192,8 @@ def add_book_author_and_year(catalog, author_name, book):
     """
     books_by_year_author = catalog['books_by_year_author']
     pub_year = book['original_publication_year']
-    #Si el año de publicación está vacío se reemplaza por un valor simbolico
-    #TODO Completar manejo de los escenarios donde el año de publicación es vacío.
+    if pub_year == None:
+        pub_year=0000
     author_value = lp.get(books_by_year_author,author_name)
     if author_value:
         pub_year_value = lp.get(author_value,pub_year)
@@ -205,7 +205,7 @@ def add_book_author_and_year(catalog, author_name, book):
             pub_year_map = lp.new_map(1000,0.7)
             lp.put(pub_year_map,pub_year,book)
     else:
-        pass # TODO Completar escenario donde no se había agregado el autor al mapa principal
+        pass 
     return catalog
 
 

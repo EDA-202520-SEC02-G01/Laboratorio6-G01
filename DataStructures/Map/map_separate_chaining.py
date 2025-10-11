@@ -56,6 +56,7 @@ def value_set(my_map):
         while actual is not None:
             if actual["info"]["key"]!=None:
                 res=al.add_last(res, actual["info"]["value"])
+            actual=actual["next"]
     res["size"]=my_map["size"]
     return res
 
@@ -103,8 +104,10 @@ def rehash(my_map):
     si=mf.is_prime(numero_a)
     if not si:
         numero_a=mf.next_prime(numero_a)
-    x=new_map(numero_a,my_map["limit_factor"])
-    for elemento in my_map["table"]["elements"]:
-        if elemento["key"]!=None:
-            x=put(x,elemento["key"], elemento["value"])
-        return x
+    res=new_map(numero_a,my_map["limit_factor"])
+    for i in my_map["table"]["elements"]:
+        if i is not None:  
+            for element in i["elements"]:
+                if element["key"] is not None:
+                    res = put(res, element["key"], element["value"])
+    return res
