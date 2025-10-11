@@ -62,7 +62,7 @@ def rehash(my_map):
     si=mf.is_prime(numero_a)
     if not si:
         numero_a=mf.next_prime(numero_a)
-    x=new_map(numero_a,my_map["load_factor"])
+    x=new_map(numero_a,my_map["limit_factor"])
     for elemento in my_map["table"]["elements"]:
         if elemento["key"]!=None:
             x=put(x,elemento["key"], elemento["value"])
@@ -72,10 +72,8 @@ def remove(my_map, key):
     for elemento in my_map["table"]["elements"]:
         if elemento["key"]==key:
             elemento["value"]="__EMPTY__"
-            elemento["key"]=="__EMPTY__"
-            elementos=my_map["current_factor"]* my_map["capacity"]
-            curren_factor=(elementos-1)/my_map["capacity"]
-            my_map["current_factor"]=curren_factor
+            elemento["key"]="__EMPTY__"
+            my_map["current_factor"] = my_map["size"] / my_map["capacity"]
             my_map["size"]-=1
     return my_map
     
@@ -93,7 +91,7 @@ def size(my_map):
 def value_set(my_map):
     cosas=al.new_list()
     for elemento in my_map["table"]["elements"]:
-        if elemento["key"]!=None or elemento["key"]!="__EMPTY__":
+        if elemento["key"]!=None and elemento["key"]!="__EMPTY__":
             cosas=al.add_last(cosas, elemento)
         cosas=my_map["size"]
     return cosas
@@ -122,6 +120,6 @@ def is_empty(my_map):
 def key_set(my_map):
     res = al.new_list()
     for i in my_map["table"]["elements"]:
-        if i["key"] is not None:
+        if i["key"] is not None and i["key"] != "__EMPTY__":
             al.add_last(res, i["key"])
     return res
