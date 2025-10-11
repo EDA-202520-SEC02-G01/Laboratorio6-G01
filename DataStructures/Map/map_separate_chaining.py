@@ -35,4 +35,24 @@ def is_empty(my_map):
         return True
     return False
 
-def contains
+def contains(my_map, key):
+    for elementos in my_map["table"]["elements"]:
+        actual=elementos["first"]
+        encontro=False
+        while actual is not None and encontro==False:
+            if actual["info"]["key"]==key:
+                encontro=True
+    return encontro
+    
+def size(my_map):
+    return my_map["size"]
+
+def value_set(my_map):
+    res=al.new_list()
+    for elementos in my_map["table"]["elements"]:
+        actual=elementos["first"]
+        while actual is not None:
+            if actual["info"]["key"]!=None:
+                res=al.add_last(res, actual["info"]["value"])
+    res["size"]=my_map["size"]
+    return res
