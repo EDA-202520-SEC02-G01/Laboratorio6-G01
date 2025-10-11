@@ -30,7 +30,7 @@ import time
 import tracemalloc
 from DataStructures.Map import map_linear_probing as lp
 from DataStructures.List import array_list as al
-# TODO Realice la importación del mapa separate chaining
+from DataStructures.Map import map_separate_chaining as sc
 
 
 data_dir = os.path.dirname(os.path.realpath('__file__')) + '/Data/GoodReads/'
@@ -53,20 +53,17 @@ def new_logic():
 
     #Tabla de Hash que contiene los libros indexados por good_reads_book_id  
     #(good_read_id -> book)
-    catalog['books_by_id'] = None #TODO completar la creación del mapa
-
+    catalog['books_by_id'] = lp.new_map(10000, 0.7)
     #Tabla de Hash con la siguiente pareja llave valor: (author_name -> List(books))
-    catalog['books_by_authors'] = None #TODO completar la creación del mapa
-
+    catalog['books_by_authors'] = lp.new_map(1000, 0.7)
     #Tabla de Hash con la siguiente pareja llave valor: (tag_name -> tag)
-    catalog['tags'] = None #TODO completar la creación del mapa
-
+    catalog['tags'] = lp.new_map(1000, 0.7)
     #Tabla de Hash con la siguiente pareja llave valor: (tag_id -> book_tags)
     catalog['book_tags'] = lp.new_map(1000,0.7)
 
     #Tabla de Hash principal que contiene sub-mapas dentro de los valores
     #con la siguiente representación de la pareja llave valor: (author_name -> (original_publication_year -> list(books)))
-    catalog['books_by_year_author'] = None #TODO completar la creación del mapa
+    catalog['books_by_year_author'] = lp.new_map(1000, 0.7)
     
     return catalog
 
@@ -234,7 +231,9 @@ def add_book_tag(catalog, book_tag):
         book_tag_list = lp.get(catalog['book_tags'],t['tag_id'])
         al.add_last(book_tag_list,book_tag)
     else:
-        pass #TODO Completar escenario donde el book_tag no se había agregado al mapa   
+        new_list = al.new_list()
+        al.add_last(new_list, book_tag)
+        lp.put(catalog['book_tags'], t['tag_id'], new_list)
     return catalog
 
 #  -------------------------------------------------------------
@@ -267,8 +266,14 @@ def get_books_by_tag(catalog, tag_name):
     de book_tags y finalmente relacionarlo con los datos completos del libro.
 
     """
-    #TODO Completar función de consulta
-    pass
+    tag = lp.get(catalog['tags'], tag_name)
+    if tag is None:
+        return []
+    tag_id = tag['tag_id']
+    book_tag_list = lp.get(catalog['book_tags'], tag_id)
+    if book_tag_list is None:
+        return []
+    return book_tag_list
 
 
 def get_books_by_author_pub_year(catalog, author_name, pub_year):
