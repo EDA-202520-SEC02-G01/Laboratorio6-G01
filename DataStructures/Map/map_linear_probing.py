@@ -48,10 +48,12 @@ def put(my_map, key, value):
         my_map["table"]["elements"][pos]["value"]=value
         my_map["current_factor"]+=1
         my_map["size"] += 1
-        
-    if my_map["current_factor"]/ my_map["capacity"] > my_map["limit_factor"]:
-        my_map=rehash(my_map)
-        
+        elementos=my_map["current_factor"]* my_map["capacity"]
+        curren_factor=(elementos+1)/my_map["capacity"]
+        if curren_factor > my_map["limit_factor"]:
+            my_map=rehash(my_map)
+        my_map["current_factor"]=curren_factor
+        my_map["size"]+=1
     return my_map
     
 
@@ -67,7 +69,15 @@ def rehash(my_map):
     return x
 
 def remove(my_map, key):
-    pass
+    for elemento in my_map["table"]["elements"]:
+        if elemento["key"]==key:
+            elemento["value"]="__EMPTY__"
+            elemento["key"]=="__EMPTY__"
+            elementos=my_map["current_factor"]* my_map["capacity"]
+            curren_factor=(elementos-1)/my_map["capacity"]
+            my_map["current_factor"]=curren_factor
+            my_map["size"]-=1
+    return my_map
     
 def contains(my_map, key): 
     lista = my_map['table']['elements']
@@ -80,8 +90,14 @@ def size(my_map):
     return my_map['size']
 
 
-
-
+def value_set(my_map):
+    cosas=al.new_list()
+    for elemento in my_map["table"]["elements"]:
+        if elemento["key"]!=None or elemento["key"]!="__EMPTY__":
+            cosas=al.add_last(cosas, elemento)
+        cosas=my_map["size"]
+    return cosas
+    
 def new_map(num_elements, load_factor, prime=109345121):
     capacity=mf.next_prime(num_elements/load_factor)
     map={"prime":prime, "capacity":capacity,"scale":1,"shift":0,"table":{"size":capacity,"elements":[]},"current_factor":0,"limit_factor":load_factor,"size":0}
