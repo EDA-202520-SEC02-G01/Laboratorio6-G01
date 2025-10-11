@@ -46,14 +46,14 @@ def put(my_map, key, value):
     else: 
         my_map["table"]["elements"][pos]["key"]=key
         my_map["table"]["elements"][pos]["value"]=value
-        my_map["current_factor"]+=1
+        
         my_map["size"] += 1
         elementos=my_map["current_factor"]* my_map["capacity"]
         curren_factor=(elementos+1)/my_map["capacity"]
         if curren_factor > my_map["limit_factor"]:
             my_map=rehash(my_map)
         my_map["current_factor"]=curren_factor
-        my_map["size"]+=1
+        
     return my_map
     
 
