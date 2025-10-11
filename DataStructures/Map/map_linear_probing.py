@@ -104,9 +104,9 @@ def is_empty(my_map):
     return False
 
 def key_set(my_map):
-    res={"size":0, "elements":[]}
+    res = {"size": 0, "elements": []}
     for i in my_map["table"]["elements"]:
         if i["key"] != None:
             res["elements"].append(i["key"])
-            res["size"]+=1
+            res["size"] += 1
     return res
