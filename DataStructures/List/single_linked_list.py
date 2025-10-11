@@ -198,3 +198,11 @@ def sub_list(my_list, pos_i, num_elements):
     newlist["last"]=anterior
     nodo_c["next"]=None
     return newlist
+
+def default_function(elemen_1, element_2):
+
+   if elemen_1 > element_2:
+      return 1
+   elif elemen_1 < element_2:
+      return -1
+   return 0
