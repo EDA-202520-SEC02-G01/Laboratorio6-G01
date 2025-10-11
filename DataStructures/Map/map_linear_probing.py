@@ -93,7 +93,7 @@ def value_set(my_map):
     for elemento in my_map["table"]["elements"]:
         if elemento["key"]!=None and elemento["key"]!="__EMPTY__":
             cosas=al.add_last(cosas, elemento)
-        cosas=my_map["size"]
+        cosas["size"]=my_map["size"]
     return cosas
     
 def new_map(num_elements, load_factor, prime=109345121):

@@ -34,3 +34,5 @@ def is_empty(my_map):
     if my_map["size"]==0:
         return True
     return False
+
+def contains
