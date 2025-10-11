@@ -72,6 +72,7 @@ def new_logic():
 #  -------------------------------------------------------------
 
 #TODO incorporar las funciones para toma de tiempo y memoria
+
 def load_data(catalog):
     """
     Carga los datos de los archivos y cargar los datos en la
@@ -244,8 +245,10 @@ def get_book_info_by_book_id(catalog, good_reads_book_id):
     """
     Retorna toda la informacion que se tenga almacenada de un libro según su good_reads_id.
     """
-    #TODO Completar función de consulta
-    pass
+    libros = catalog["books"]
+    info = lp.get(libros, good_reads_book_id)
+    return info
+    
 
 
 def get_books_by_author(catalog, author_name):
@@ -289,8 +292,25 @@ def get_books_by_author_pub_year(catalog, author_name, pub_year):
     tracemalloc.start()
     start_memory = getMemory()
     
-    # TODO Completar la función de consulta
-    resultado = None  # Sustituir con la lógica real
+    
+    author_map = catalog["authorBooks"]
+
+# Buscar el autor en el mapa
+    author_entry = lp.get(author_map, author_name)
+    if author_entry is not None:
+   
+        year_map = sc.get(author_entry)
+    
+    
+        year_entry = lp.get(year_map, pub_year)
+        if year_entry is not None:
+        
+            resultado = sc.get(year_entry)
+        else:
+            resultado = [] 
+    else:
+        resultado = []  
+        resultado = None  
     
     # Detener medición de memoria
     stop_memory = getMemory()
