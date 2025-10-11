@@ -255,8 +255,15 @@ def get_books_by_author(catalog, author_name):
     """
     Retorna los libros asociado al autor ingresado por párametro
     """
-    #TODO Completar función de consulta
-    pass
+    authors_map = catalog["books_by_authors"]
+
+    author_books = lp.get(authors_map, author_name)
+
+    if author_books is not None:
+        return author_books
+    else:
+        return []
+    
 
 
 def get_books_by_tag(catalog, tag_name):
